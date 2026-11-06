@@ -1,4 +1,6 @@
 import Link from "next/link";
+import StandardFooter from "@/components/standard-footer/StandardFooter";
+import { FOOTER } from "@/lib/footer.config";
 import type { ReactNode } from "react";
 import { BRAND, SIBLINGS } from "@/lib/yugtytechnology/content";
 import { Mark } from "./Mark";
@@ -50,31 +52,12 @@ export function Nav() {
   );
 }
 
+/** The standard Yugty footer. Edit lib/footer.config.ts to change its content for this app. */
 export function Footer() {
-  const sibs = siblings();
   return (
-    <footer className="dv-footer">
-      <div className="dv-footer-in">
-        <div>
-          <Link href="/" className="dv-brand"><Mark size={26} /><span>YUGTY</span><b>TECHNOLOGY</b></Link>
-          <p>{BRAND.tagline}</p>
-          <p className="dv-footer-small">{BRAND.description}</p>
-        </div>
-        <ul aria-label="Explore">
-          <li><Link href="/#build">What we build</Link></li>
-          <li><Link href="/#process">How we work</Link></li>
-          <li><Link href="/services">Services in detail</Link></li>
-          <li><Link href="/contact">Start a project</Link></li>
-        </ul>
-        <ul aria-label="Yugty portals">
-          {sibs.map((s) => (
-            <li key={s.label}><a href={s.env} rel="noopener">{s.label}</a></li>
-          ))}
-          <li><Link href="/privacy">Privacy</Link></li>
-        </ul>
-      </div>
-      <p className="dv-footer-legal">© {new Date().getFullYear()} YugtyTechnology. All rights reserved.</p>
-    </footer>
+    <div id="yugty-footer">
+      <StandardFooter config={FOOTER} />
+    </div>
   );
 }
 
