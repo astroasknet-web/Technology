@@ -6,7 +6,7 @@ import { Mark } from "./Mark";
 const LINKS: [string, string][] = [["/#build", "What we build"], ["/#process", "Process"], ["/#ai", "AI tools"], ["/services", "Services"], ["/#faq", "FAQ"]];
 
 function siblings() {
-  return SIBLINGS.filter((s): s is { label: string; env: string } => Boolean(s.env));
+  return SIBLINGS.filter((s): s is { label: string; env: string; nav?: boolean } => Boolean(s.env));
 }
 
 export function Nav() {
@@ -24,9 +24,9 @@ export function Nav() {
             <Link key={href} href={href}>{label}</Link>
           ))}
         </nav>
-        {sibs.length ? (
+        {sibs.some((s) => s.nav) ? (
           <div className="dv-sibs" aria-label="Other Yugty portals">
-            {sibs.map((s) => (
+            {sibs.filter((s) => s.nav).map((s) => (
               <a key={s.label} href={s.env} className="dv-sib" rel="noopener"><i aria-hidden="true" />{s.label}</a>
             ))}
           </div>
@@ -68,7 +68,7 @@ export function Footer() {
         </ul>
         <ul aria-label="Yugty portals">
           {sibs.map((s) => (
-            <li key={s.label}><a href={s.env} rel="noopener">Yugty{s.label}</a></li>
+            <li key={s.label}><a href={s.env} rel="noopener">{s.label}</a></li>
           ))}
           <li><Link href="/privacy">Privacy</Link></li>
         </ul>
